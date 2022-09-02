@@ -112,7 +112,6 @@ public class StandAloneTest {
 		//Closing the browser:
 		driver.close();
 		
-		
 	}
 
 }
