@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import rahulshettyacademy.pageobjects.LandingPage;
 
 public class StandAloneTest {
 
@@ -37,6 +38,12 @@ public class StandAloneTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //Max timeout
 		driver.manage().window().maximize();
 		driver.get("https://rahulshettyacademy.com/client");
+		
+		/*We have created a class called "LandingPage" in main folder for Page Object Concept.
+		 * So defining object of "LandingPage" class, and then passing the driver which has life to that class.
+		 * And in the "LandingPage" class, we are retrieving the value of this driver and storing it to local driver there:
+		 */
+		LandingPage landingpage = new LandingPage(driver);
 		
 		driver.findElement(By.id("userEmail")).sendKeys("dummyemail@rsa.com");
 		driver.findElement(By.id("userPassword")).sendKeys("Dummypassword@123");
