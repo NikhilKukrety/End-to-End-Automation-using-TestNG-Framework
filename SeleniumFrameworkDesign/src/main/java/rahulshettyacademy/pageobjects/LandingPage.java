@@ -5,7 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LandingPage {
+import rahulshettyacademy.AbstractComponents.AbstractComponent;
+
+//By using the "extends", all the methods, variables or fields declared in the "AbstractComponent" class will be automatically applicable to "LandingPage" class also.
+//And in the "AbstractComponent" class, we are storing all the reusable components.
+public class LandingPage extends AbstractComponent {
 	
 	WebDriver driver;
 	
@@ -15,6 +19,8 @@ public class LandingPage {
 	
 	public LandingPage(WebDriver driver) //We are catching the value of driver from "StandAloneTest" class to bring bring life to local "driver" of this class 
 	{
+		
+		super(driver); //By doing this, we are sending the life of driver to the abstract class (from child to parent). And by this, we will have to create a constructor in the abstract class to catch its value
 		//Giving life to local "driver" of this class:
 		this.driver = driver;
 		
@@ -30,10 +36,25 @@ public class LandingPage {
 	WebElement username;
 	
 	@FindBy(id="userPassword")
-	WebElement password;
+	WebElement passwordEle;
 	
 	@FindBy(id="login")
 	WebElement submit;
+	
+	//Defining method to navigate to URL
+	public void goTo()
+	{
+		driver.get("https://rahulshettyacademy.com/client");
+	}
+	
+	//Defining method to login through the first page
+	public void loginApplication()
+	{
+		username.sendKeys("dummyemail@rsa.com");
+		passwordEle.sendKeys("Dummypassword@123");
+		submit.click();
+	}
+	
 	
 	
 	
