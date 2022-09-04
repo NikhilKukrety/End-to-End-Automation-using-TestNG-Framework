@@ -15,67 +15,35 @@ import org.testng.Assert;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import rahulshettyacademy.pageobjects.LandingPage;
+import rahulshettyacademy.pageobjects.ProductCatalogue;
 
 public class SubmitOrderTest {
 
 	public static void main(String[] args) {
-		//Quick note:
-		//Parent-child traverse - .classname (of parent) tagname (of child):
-		//If classname of parent is totalRow, and tagname of child is button, then cssSelector becomes - .totalRow button 
-		
-		
+
 		String productName = "ZARA COAT 3";
 		
-		
-		//We dont need selenium webdriver in local, instead we can download webdriver manager from pom.xml file.
-		//Download - WebDriverManager from maven repository and add the dependency.
-		
-		//So, instead of giving System.setProperty.. just give below:
+		/*We don't need Selenium WebDriver in local, instead we can download webDriver manager from pom.xml file.
+		*Download - WebDriverManager from Maven repository and add the dependency.
+		*So, instead of giving System.setProperty.. just give below: */	
 		WebDriverManager.chromedriver().setup();
 		
-		//Creating object of chrome driver:
+		//Creating object of ChromeDriver:
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //Max timeout
 		driver.manage().window().maximize();
 		
 		/*We have created a class called "LandingPage" in main folder for Page Object Concept.
 		 * So defining object of "LandingPage" class, and then passing the driver which has life to that class.
-		 * And in the "LandingPage" class, we are retrieving the value of this driver and storing it to local driver there:
-		 */
+		 * And in the "LandingPage" class, we are retrieving the value of this driver and storing it to local driver there: */
 		LandingPage landingpage = new LandingPage(driver);
 		landingpage.goTo(); //Navigating to application URL.
 		landingpage.loginApplication(); //calling the method to perform all the 3 operations - entering email, pass and licking login.
-		
-	
-		
-		
-		/*Now, after clicking the login button, we need to grab the complete list of items displaying and iterate through each of them
-		*to check which one we need to pick.
-		*/
+		ProductCatalogue productCatalogue = new ProductCatalogue(driver); //Creating object of ProductCatalogue class
+		List<WebElement> products = productCatalogue.getProductsList(); //using object of ProductCatalogue class, calling the method "getProductsList"
+		productCatalogue.addProductToCart(productName); //Adding fetched product to cart
 		
 		
-		
-		//Now, instead of using for loop, we will be using Java Streams to iterate over each product and add "ZARA COAT 3" product. 
-		//Basically, "ZARA COAT 3" is not written on the ".mb-3" path. so we have to find where it is written, so its written deeper on tag "b":
-		//And, we are iterating over each product to find the required text (zara coat 3):
-		// WebElement product = products.stream().filter(s->
-		// s.findElement(By.cssSelector("b")).getText().equals(productName)).findFirst().orElse(null);
-		//Above basically means, if the element is found, then return thay element only which we found first, or else if element is not found, then return null.
-		
-		//Now, "product" has stored the "ZARA COAT 3" product in it, and by using this, we will click on its "Add to Cart" button:
-		//Using parent-child traverse, we will reach to "Add to Cart" button:
-		// product.findElement(By.cssSelector(".card-body button:last-of-type")).click();
-		
-		/*Now, after we have added the item to cart, we will see a loader (spinner) for few seconds, and we have to wait until the
-		 * spinner desappears and until the toast message appears that product was added successfully.
-		 * So we have to capture that toast message before moving to cart
-		 */
-		
-		//Waiting till 5 seconds till the toast message appears:
-		// wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#toast-container")));
-		
-		//Waiting for spinner to become invisible:
-		// wait.until(ExpectedConditions.invisibilityOf(driver.findElement(By.cssSelector(".ng-animating"))));
 		
 		//Now, once above two expected conditions are met, we will click on "Cart" to move on:
 		driver.findElement(By.cssSelector("[routerlink*='cart']")).click();

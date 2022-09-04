@@ -32,7 +32,7 @@ public class LandingPage extends AbstractComponent {
 	
 	//FAMOUS INTERVIEW QUESTION:
 	//Below code works using PageFactory.init... as states in above constructor:
-	@FindBy(id="username")
+	@FindBy(id="userEmail")
 	WebElement username;
 	
 	@FindBy(id="userPassword")

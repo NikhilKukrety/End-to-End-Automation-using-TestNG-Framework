@@ -33,15 +33,39 @@ public class ProductCatalogue extends AbstractComponent{
 	@FindBy(css=".mb-3")
 	List<WebElement> products; //"List" because we are finding multiple elements
 	
+	@FindBy(css=".ng-animating")
+	WebElement spinner; //Storing the WebElement spinner with above cssSelector
+	
 	By productsBy = By.cssSelector(".mb-3");
+	By addToCart = By.cssSelector(".card-body button:last-of-type"); //Storing the "Add to Cart" WebElement in "addToCart" variable so we can use it anywhere
+	By toastMessage = By.cssSelector("#toast-container"); //Storing the toast message WebElement so we can use it to wait for it	
+	
 	
 	//Below is an action method, which will get the products list
-	public List<WebElement> getProductsList()
+	public List<WebElement> getProductsList() 
 	{
-		waitForElementToAppear(productsBy); //We are waiting for products to appear on page, after that we are calling webelement "products"
+		waitForElementToAppear(productsBy); //We are waiting for products to appear on page, after that we are calling WebElement "products"
 		return products;
 	}
 
+	//Action Method - To get products by name:
+	public WebElement getProductByName(String productName)
+	{
+		WebElement prod = getProductsList().stream().filter(s->
+		s.findElement(By.cssSelector("b")).getText().equals(productName)).findFirst().orElse(null);
+		return prod;
+	}
+	
+	//Action Method - To add to cart:
+	public void addProductToCart(String productName) //Fetching "ZARA COAT 3" from main class
+	{	
+		WebElement prod = getProductByName(productName); //Storing "ZARA COAT 3" in prod
+		prod.findElement(addToCart).click(); //Within "prod"'s scope, we are finding the add to cart button and clicking it
+		waitForElementToAppear(toastMessage); //Waiting for toast message to appear
+		waitForElementToDisappear(spinner); //Waiting for spinner to disappear
+	
+	
+	}
 	
 	
 	
