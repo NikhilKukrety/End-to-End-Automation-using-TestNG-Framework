@@ -48,11 +48,18 @@ public class LandingPage extends AbstractComponent {
 	}
 	
 	//Defining method to login through the first page
-	public void loginApplication()
+	public ProductCatalogue loginApplication()
 	{
 		username.sendKeys("dummyemail@rsa.com");
 		passwordEle.sendKeys("Dummypassword@123");
 		submit.click();
+		
+		/*IMPORTANT - Now, we know that on clicking submit button, we can are navigating to next page.
+		So, instead of creating new object of second page, define that object here itself and pass it to the test file (submit order) */
+		ProductCatalogue productCatalogue = new ProductCatalogue(driver);
+		return productCatalogue;
+		//Now, this method says it will return ProductCatalogue object.
+		
 	}
 	
 	

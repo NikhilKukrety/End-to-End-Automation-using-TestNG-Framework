@@ -5,8 +5,12 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import rahulshettyacademy.pageobjects.CartPage;
 
 public class AbstractComponent {
 	
@@ -17,8 +21,13 @@ public class AbstractComponent {
 	public AbstractComponent(WebDriver driver) {
 
 		this.driver=driver;
+		//Below code says, that use this local driver now to initialize the web elements:
+		PageFactory.initElements(driver, this);
 		
 	}
+	
+	@FindBy(css="[routerlink*='cart']")
+	WebElement cartHeader;
 
 	public void waitForElementToAppear(By findBy)
 	{
@@ -32,6 +41,14 @@ public class AbstractComponent {
 		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.invisibilityOf(ele));
 		
+	}
+	
+	//We are defining the clicking on add button in abstract class because "Cart" link is present on every page. So, we can use it any time:
+	public CartPage goToCart()
+	{
+		cartHeader.click();
+		CartPage cartPage = new CartPage(driver); //Creating object for the next page "CartPage"
+		return cartPage;
 	}
 	
 	
