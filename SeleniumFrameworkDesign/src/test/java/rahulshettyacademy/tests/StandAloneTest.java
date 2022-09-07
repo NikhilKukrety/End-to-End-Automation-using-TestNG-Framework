@@ -1,4 +1,4 @@
-package rahulshettyacademy;
+package rahulshettyacademy.tests;
 
 import java.time.Duration;
 import java.util.List;

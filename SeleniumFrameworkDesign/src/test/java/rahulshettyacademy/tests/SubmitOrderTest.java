@@ -1,5 +1,6 @@
-package rahulshettyacademy;
+package rahulshettyacademy.tests;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
@@ -12,33 +13,25 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import rahulshettyacademy.TestComponents.BaseTest;
 import rahulshettyacademy.pageobjects.CartPage;
 import rahulshettyacademy.pageobjects.CheckoutPage;
 import rahulshettyacademy.pageobjects.ConfirmationPage;
 import rahulshettyacademy.pageobjects.LandingPage;
 import rahulshettyacademy.pageobjects.ProductCatalogue;
 
-public class SubmitOrderTest {
+public class SubmitOrderTest extends BaseTest{
 
-	public static void main(String[] args) {
-
+		//This complete end to end e-commerce automation has now become a test case with TestNG Framework
+		@Test
+		public void submitOrder() throws IOException, InterruptedException
+		{
 		String productName = "ZARA COAT 3";
-		/*We don't need Selenium WebDriver in local, instead we can download webDriver manager from pom.xml file.
-		*Download - WebDriverManager from Maven repository and add the dependency.
-		*So, instead of giving System.setProperty.. just give below: */	
-		WebDriverManager.chromedriver().setup();
-		//Creating object of ChromeDriver:
-		WebDriver driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //Max timeout
-		driver.manage().window().maximize();
-		/*We have created a class called "LandingPage" in main folder for Page Object Concept.
-		 * So defining object of "LandingPage" class, and then passing the driver which has life to that class.
-		 * And in the "LandingPage" class, we are retrieving the value of this driver and storing it to local driver there: */
-		LandingPage landingpage = new LandingPage(driver);
-		landingpage.goTo(); //Navigating to application URL.
-		ProductCatalogue productCatalogue = landingpage.loginApplication(); //calling the method to perform all the 3 operations using the object defined in the same method for next page- entering email, pass and licking login.
+		LandingPage landingPage = launchApplication(); //The object (landinpage) which was returned from method "launchApplication()" in "BaseTest" class, is being caught up and stored in a other object "landingPage" to use it further 
+		ProductCatalogue productCatalogue = landingPage.loginApplication(); //calling the method to perform all the 3 operations using the object defined in the same method for next page- entering email, pass and licking login.
 		List<WebElement> products = productCatalogue.getProductsList(); //using object of ProductCatalogue class, calling the method "getProductsList"
 		productCatalogue.addProductToCart(productName); //Adding fetched product to cart
 		CartPage cartPage = productCatalogue.goToCart(); /*Though "goToCart()" method is defined in "AbstractComponent" class,
@@ -54,7 +47,6 @@ public class SubmitOrderTest {
 		Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
 		//Closing the browser:
 		driver.close();
-		
-	}
+		}
 
 }
