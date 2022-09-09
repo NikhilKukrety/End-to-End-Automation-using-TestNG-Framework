@@ -41,6 +41,18 @@ public class LandingPage extends AbstractComponent {
 	@FindBy(id="login")
 	WebElement submit;
 	
+	//Below is a css for error message, if login id or password is incorrect
+	@FindBy(css="[class*='flyInOut']")
+	WebElement errorMessage;
+
+	
+	public String getErrorMessage()
+	{
+		waitForWebElementToAppear(errorMessage); //Basically, wait for the error message to appear
+		return errorMessage.getText();
+	}
+	
+	
 	//Defining method to navigate to URL
 	public void goTo()
 	{
@@ -48,10 +60,10 @@ public class LandingPage extends AbstractComponent {
 	}
 	
 	//Defining method to login through the first page
-	public ProductCatalogue loginApplication()
+	public ProductCatalogue loginApplication(String email, String password)
 	{
-		username.sendKeys("dummyemail@rsa.com");
-		passwordEle.sendKeys("Dummypassword@123");
+		username.sendKeys(email);
+		passwordEle.sendKeys(password);
 		submit.click();
 		
 		/*IMPORTANT - Now, we know that on clicking submit button, we can are navigating to next page.

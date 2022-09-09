@@ -8,6 +8,8 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import rahulshettyacademy.pageobjects.LandingPage;
@@ -16,6 +18,7 @@ public class BaseTest {
 	
 	//Defining globally the WebDriver:
 	public WebDriver driver;
+	public LandingPage landingPage; //"public" means all classes can access this object "landingpage"
 	
 	
 	public WebDriver initializeDriver() throws IOException
@@ -55,6 +58,8 @@ public class BaseTest {
 		return driver;
 	}
 	
+	
+	@BeforeMethod //This method will run first whenever this class is called
 	public LandingPage launchApplication() throws IOException
 	{
 		driver = initializeDriver(); //which ever driver is returned, chrome, firefox or edge, store it in a variable "driver"
@@ -62,9 +67,16 @@ public class BaseTest {
 		/*We have created a class called "LandingPage" in main folder for Page Object Concept.
 		* So defining object of "LandingPage" class, and then passing the driver which has life to that class.
 		* And in the "LandingPage" class, we are retrieving the value of this driver and storing it to local driver there: */
-		LandingPage landingpage = new LandingPage(driver);
-		landingpage.goTo(); //Navigating to application URL.
-		return landingpage; //returning the object to use (or catch) it in the test (SubmitOrder) class.
+		landingPage = new LandingPage(driver);
+		landingPage.goTo(); //Navigating to application URL.
+		return landingPage; //returning the object to use (or catch) it in the test (SubmitOrder) class.
+	}
+	
+	
+	@AfterMethod //This method will run at the end
+	public void tearDown()
+	{
+		driver.close();
 	}
 
 }

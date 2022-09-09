@@ -30,8 +30,7 @@ public class SubmitOrderTest extends BaseTest{
 		public void submitOrder() throws IOException, InterruptedException
 		{
 		String productName = "ZARA COAT 3";
-		LandingPage landingPage = launchApplication(); //The object (landinpage) which was returned from method "launchApplication()" in "BaseTest" class, is being caught up and stored in a other object "landingPage" to use it further 
-		ProductCatalogue productCatalogue = landingPage.loginApplication(); //calling the method to perform all the 3 operations using the object defined in the same method for next page- entering email, pass and licking login.
+		ProductCatalogue productCatalogue = landingPage.loginApplication("dummyemail@rsa.com","Dummypassword@123"); //calling the method to perform all the operations using the object defined in the same method for next page - clicking login.
 		List<WebElement> products = productCatalogue.getProductsList(); //using object of ProductCatalogue class, calling the method "getProductsList"
 		productCatalogue.addProductToCart(productName); //Adding fetched product to cart
 		CartPage cartPage = productCatalogue.goToCart(); /*Though "goToCart()" method is defined in "AbstractComponent" class,
@@ -45,8 +44,6 @@ public class SubmitOrderTest extends BaseTest{
 		ConfirmationPage confirmationPage = checkoutPage.submitOrder(); //Submitting the order
 		String confirmMessage = confirmationPage.getConfirmationMessage(); //Getting the confirmation message
 		Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
-		//Closing the browser:
-		driver.close();
 		}
 
 }

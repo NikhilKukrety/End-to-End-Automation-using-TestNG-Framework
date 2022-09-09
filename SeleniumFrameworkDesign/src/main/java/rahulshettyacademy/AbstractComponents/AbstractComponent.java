@@ -36,6 +36,14 @@ public class AbstractComponent {
 				wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
 	}
 	
+	
+	public void waitForWebElementToAppear(WebElement findBy)
+	{
+		//Using Explicit wait, to wait until the products are displayed before iterating through them:
+				WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
+				wait.until(ExpectedConditions.visibilityOf(findBy));
+	}
+	
 	public void waitForElementToDisappear(WebElement ele)
 	{
 		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(5));
