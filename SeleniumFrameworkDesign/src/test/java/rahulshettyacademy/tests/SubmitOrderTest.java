@@ -13,6 +13,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -29,11 +30,11 @@ public class SubmitOrderTest extends BaseTest{
 		String productName = "ZARA COAT 3";
 		
 		//This complete end to end e-commerce automation has now become a test case with TestNG Framework
-		@Test
-		public void submitOrder() throws IOException, InterruptedException
+		@Test(dataProvider = "getData", groups = {"Purchase"}) //Means this method will pick up the test data given in getData method
+		public void submitOrder(String email, String password, String productName) throws IOException, InterruptedException
 		{
 			
-		ProductCatalogue productCatalogue = landingPage.loginApplication("dummyemail@rsa.com","Dummypassword@123"); //calling the method to perform all the operations using the object defined in the same method for next page - clicking login.
+		ProductCatalogue productCatalogue = landingPage.loginApplication(email,password); //calling the method to perform all the operations using the object defined in the same method for next page - clicking login. Also, the test data is getting picked up from JSON format defined test data in getData method
 		List<WebElement> products = productCatalogue.getProductsList(); //using object of ProductCatalogue class, calling the method "getProductsList"
 		productCatalogue.addProductToCart(productName); //Adding fetched product to cart
 		CartPage cartPage = productCatalogue.goToCart(); /*Though "goToCart()" method is defined in "AbstractComponent" class,
@@ -63,8 +64,14 @@ public class SubmitOrderTest extends BaseTest{
 		
 		//To run tests in parallel, modify below line like this in "testng.xml" file:
 		// <suite parallel = "tests" name="Suite">
-		//Methods will run parallaly - <suite parallel = "methods" name="Suite">
+		//Methods will run in parallel  - <suite parallel = "methods" name="Suite">
 		
+		//By doing below, we can provide test data to our tests from JSON format organized test data:
+		@DataProvider
+		public Object[][] getData()
+		{
+			return new Object[][] {{"dummyemail@rsa.com","Dummypassword@123","ZARA COAT 3"},{"kukrety@gmail.com","Dummypassword@123","ADIDAS ORIGINAL"}};
+		}
 		
 		
 		
