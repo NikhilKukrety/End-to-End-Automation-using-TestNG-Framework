@@ -59,7 +59,7 @@ public class BaseTest {
 	}
 	
 	
-	@BeforeMethod //This method will run first whenever this class is called
+	@BeforeMethod(alwaysRun=true) //This method will run first whenever this class is called.  Writing "always..." because if we use groups in any class tied to this class, this class also treats all the methods here as groups.
 	public LandingPage launchApplication() throws IOException
 	{
 		driver = initializeDriver(); //which ever driver is returned, chrome, firefox or edge, store it in a variable "driver"
@@ -73,7 +73,7 @@ public class BaseTest {
 	}
 	
 	
-	@AfterMethod //This method will run at the end
+	@AfterMethod() //This method will run at the end
 	public void tearDown()
 	{
 		driver.close();

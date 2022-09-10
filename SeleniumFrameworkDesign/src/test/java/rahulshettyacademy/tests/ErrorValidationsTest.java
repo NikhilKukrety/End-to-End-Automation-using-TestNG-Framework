@@ -16,8 +16,8 @@ import rahulshettyacademy.pageobjects.ProductCatalogue;
 public class ErrorValidationsTest extends BaseTest{
 
 		//This complete end to end e-commerce automation has now become a test case with TestNG Framework
-		@Test
-		public void submitOrder() throws IOException, InterruptedException
+		@Test(groups = {"ErrorHandling"})
+		public void LoginErrorValidation() throws IOException, InterruptedException
 		{
 		String productName = "ZARA COAT 3";
 		landingPage.loginApplication("dummyemail@rsa.comm","Dummypassword@123");

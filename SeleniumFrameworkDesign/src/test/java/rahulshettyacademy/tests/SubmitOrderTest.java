@@ -21,15 +21,18 @@ import rahulshettyacademy.pageobjects.CartPage;
 import rahulshettyacademy.pageobjects.CheckoutPage;
 import rahulshettyacademy.pageobjects.ConfirmationPage;
 import rahulshettyacademy.pageobjects.LandingPage;
+import rahulshettyacademy.pageobjects.OrderPage;
 import rahulshettyacademy.pageobjects.ProductCatalogue;
 
 public class SubmitOrderTest extends BaseTest{
 
+		String productName = "ZARA COAT 3";
+		
 		//This complete end to end e-commerce automation has now become a test case with TestNG Framework
 		@Test
 		public void submitOrder() throws IOException, InterruptedException
 		{
-		String productName = "ZARA COAT 3";
+			
 		ProductCatalogue productCatalogue = landingPage.loginApplication("dummyemail@rsa.com","Dummypassword@123"); //calling the method to perform all the operations using the object defined in the same method for next page - clicking login.
 		List<WebElement> products = productCatalogue.getProductsList(); //using object of ProductCatalogue class, calling the method "getProductsList"
 		productCatalogue.addProductToCart(productName); //Adding fetched product to cart
@@ -44,6 +47,29 @@ public class SubmitOrderTest extends BaseTest{
 		ConfirmationPage confirmationPage = checkoutPage.submitOrder(); //Submitting the order
 		String confirmMessage = confirmationPage.getConfirmationMessage(); //Getting the confirmation message
 		Assert.assertTrue(confirmMessage.equalsIgnoreCase("THANKYOU FOR THE ORDER."));
+		
 		}
+		
+		@Test(dependsOnMethods = {"submitOrder"}) //The below test will run after submitOrder is run because in below method, we are verifying if the product is added to the orders list
+		public void orderHistoryTest()
+		{
+			//So, in order to check the product added, atleast we should be logged in:
+			ProductCatalogue productCatalogue = landingPage.loginApplication("dummyemail@rsa.com","Dummypassword@123");
+			//Clicking on "Orders" link (this link is common to all the pages)
+			OrderPage ordersPage = productCatalogue.goToOrdersPage(); //This method clicks the link and then returns the object "ordersPage". So, its return type is object, so storing it in object "ordersPage".
+			Assert.assertTrue(ordersPage.VerifyOrderDisplay(productName)); //This method returns true if match is found. So applying Assert of true on this method to check if step will be passed if match is found
+			
+		}
+		
+		//To run tests in parallel, modify below line like this in "testng.xml" file:
+		// <suite parallel = "tests" name="Suite">
+		//Methods will run parallaly - <suite parallel = "methods" name="Suite">
+		
+		
+		
+		
+		
+		
+		
 
 }

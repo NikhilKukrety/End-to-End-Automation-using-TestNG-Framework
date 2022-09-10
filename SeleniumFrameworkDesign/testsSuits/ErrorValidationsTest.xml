@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite parallel = "tests" name="Suite">
+
+<!-- We can run our own choice of tests by grouping them like below -->
+<groups>
+	<run>
+		<include name="ErrorHandling"/>   <!-- Check the error validations test where we have grouped this under annotations. So by this line, only that @Test will run where we have grouped the @test with "ErrorHandling"-->
+	</run>
+</groups>
+  <test thread-count="5" name="Submit Order Test"> <!-- Means maximum 5 browsers can open at a time -->
+    <classes>
+      <class name="rahulshettyacademy.tests.SubmitOrderTest"/>
+    </classes>
+  </test> <!-- Test -->
+  
+  <test thread-count="5" name="Error Validations Test">
+    <classes>
+      <class name="rahulshettyacademy.tests.ErrorValidationsTest"/>
+    </classes>
+  </test> <!-- Test -->
+  
+</suite> <!-- Suite -->
