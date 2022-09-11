@@ -2,6 +2,7 @@ package rahulshettyacademy.tests;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -31,16 +32,16 @@ public class SubmitOrderTest extends BaseTest{
 		
 		//This complete end to end e-commerce automation has now become a test case with TestNG Framework
 		@Test(dataProvider = "getData", groups = {"Purchase"}) //Means this method will pick up the test data given in getData method
-		public void submitOrder(String email, String password, String productName) throws IOException, InterruptedException
+		public void submitOrder(HashMap<String, String> input) throws IOException, InterruptedException
 		{
 			
-		ProductCatalogue productCatalogue = landingPage.loginApplication(email,password); //calling the method to perform all the operations using the object defined in the same method for next page - clicking login. Also, the test data is getting picked up from JSON format defined test data in getData method
+		ProductCatalogue productCatalogue = landingPage.loginApplication(input.get("email"), input.get("password")); //calling the method to perform all the operations using the object defined in the same method for next page - clicking login. Also, the test data is getting picked up from JSON format defined test data in getData method
 		List<WebElement> products = productCatalogue.getProductsList(); //using object of ProductCatalogue class, calling the method "getProductsList"
-		productCatalogue.addProductToCart(productName); //Adding fetched product to cart
+		productCatalogue.addProductToCart(input.get("product")); //Adding fetched product to cart
 		CartPage cartPage = productCatalogue.goToCart(); /*Though "goToCart()" method is defined in "AbstractComponent" class,
 		we can access the method through the object of "ProductCatalogue" class, as here "Inheritance" comes into play
 		and as per Inheritance, child classes (ProductCatalogue, LandingPage) have access to parent class "AbstractComponent" methods. */
-		Boolean match = cartPage.VerifyProductDisplay(productName); //Will return boolean result
+		Boolean match = cartPage.VerifyProductDisplay(input.get("product")); //Will return boolean result
 		Assert.assertTrue(match); //If match is true, this will pass. And it can be in test classes because in page object classes, only code that performs some actions are written
 		//Clicking on "Checkout" button:
 		CheckoutPage checkoutPage = cartPage.checkOut();
@@ -70,7 +71,20 @@ public class SubmitOrderTest extends BaseTest{
 		@DataProvider
 		public Object[][] getData()
 		{
-			return new Object[][] {{"dummyemail@rsa.com","Dummypassword@123","ZARA COAT 3"},{"kukrety@gmail.com","Dummypassword@123","ADIDAS ORIGINAL"}};
+			//We should use "HashMap" concept to send data:
+			//Sending first set of data to submitOrder test:
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("email", "dummyemail@rsa.com");
+			map.put("password", "Dummypassword@123");
+			map.put("product", "ZARA COAT 3");
+			
+			//Sending second set of data to submitOrder test:
+			HashMap<String, String> map1 = new HashMap<String, String>();
+			map1.put("email", "kukrety@gmail.com");
+			map1.put("password", "Dummypassword@123");
+			map1.put("product", "ADIDAS ORIGINAL");
+			
+			return new Object[][] {{map},{map1}};
 		}
 		
 		
