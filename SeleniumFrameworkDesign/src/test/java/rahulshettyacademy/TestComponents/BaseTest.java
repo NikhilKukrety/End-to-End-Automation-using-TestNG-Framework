@@ -1,15 +1,23 @@
 package rahulshettyacademy.TestComponents;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import rahulshettyacademy.pageobjects.LandingPage;
@@ -56,6 +64,24 @@ public class BaseTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //Max timeout
 		driver.manage().window().maximize();
 		return driver;
+	}
+	
+	
+	//Writing this DataReader code here because SubmitOrder test is inheriting data from this baseclass as well:
+	public List<HashMap<String, String>> getJsonDataToMap(String filePath) throws IOException
+	{
+		//Now, below line of code will read the JSON file, and convert it into a string. So we are storing the obtained string in a varibale "jsonContent"
+		String jsonContent = FileUtils.readFileToString(new File(filePath), 
+				StandardCharsets.UTF_8); //Basically, this is an encoding method, which tells in which format we want to convert the string
+		
+		
+		//Now, we need to convert the above string to HashMap - To do this, we need a dependency called "JACKSON DATABIND"
+		//There is a method called "readValue" in "ObjectMapper" class, which reads the JSON file and convert it into string. As we have two data sets each converted into a hashmap,a list of two hashmaps are created, hence we are storing them in a string
+		
+		ObjectMapper mapper = new ObjectMapper();
+		//Also, readValue method takes two arguments, first one is the JSON file, and other one is the way how we want to convert the file:
+		List<HashMap<String, String>> data = mapper.readValue(jsonContent, new TypeReference<List<HashMap<String, String>>>(){});
+		return data;
 	}
 	
 	

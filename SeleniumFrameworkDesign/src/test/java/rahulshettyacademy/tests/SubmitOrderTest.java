@@ -1,12 +1,16 @@
 package rahulshettyacademy.tests;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -63,14 +67,31 @@ public class SubmitOrderTest extends BaseTest{
 			
 		}
 		
+		
+		//Take screenshot in case of failure:
+		public File getScreenshot(String testCaseName) throws IOException
+		{
+			//Creating object "ts" of class "TakesScreenshot":
+			TakesScreenshot ts = (TakesScreenshot)driver;
+			//Taking the screenshot as oytput type as "File" and storing it in File type "source":
+			File source = ts.getScreenshotAs(OutputType.FILE);
+			//Giving file path name:
+			File file = new File(System.getProperty("user.dir")+"//Reports//"+testCaseName+".png");
+			//Copies the file in the destination:
+			FileUtils.copyFile(source, file);
+			return file; //So, it is returning the path where the file is stored
+			
+		}
+		
 		//To run tests in parallel, modify below line like this in "testng.xml" file:
 		// <suite parallel = "tests" name="Suite">
 		//Methods will run in parallel  - <suite parallel = "methods" name="Suite">
 		
 		//By doing below, we can provide test data to our tests from JSON format organized test data:
 		@DataProvider
-		public Object[][] getData()
+		public Object[][] getData() throws IOException
 		{
+			/*Commenting out this piece and next method's piece of code because we are driving data from JSON file
 			//We should use "HashMap" concept to send data:
 			//Sending first set of data to submitOrder test:
 			HashMap<String, String> map = new HashMap<String, String>();
@@ -83,8 +104,11 @@ public class SubmitOrderTest extends BaseTest{
 			map1.put("email", "kukrety@gmail.com");
 			map1.put("password", "Dummypassword@123");
 			map1.put("product", "ADIDAS ORIGINAL");
+			*/
 			
-			return new Object[][] {{map},{map1}};
+			List<HashMap<String, String>> data = getJsonDataToMap(System.getProperty("user.dir")+"//src//test//java//rahulshettyacademy//data//PurchaseOrder.json"); //This returns a list of HashMaps
+			return new Object[][] {{data.get(0)},{data.get(1)}};
+		
 		}
 		
 		

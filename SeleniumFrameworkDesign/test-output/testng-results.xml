@@ -2,60 +2,40 @@
 <testng-results ignored="3" total="5" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-09-11T00:34:43 IST" name="Suite" finished-at="2022-09-11T00:35:20 IST" duration-ms="37388">
+  <suite started-at="2022-09-11T16:29:54 IST" name="Suite" finished-at="2022-09-11T16:30:34 IST" duration-ms="39400">
     <groups>
       <group name="Purchase">
-        <method signature="SubmitOrderTest.submitOrder(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@65c7a252]" name="submitOrder" class="rahulshettyacademy.tests.SubmitOrderTest"/>
+        <method signature="SubmitOrderTest.submitOrder(java.util.HashMap)[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@38cee291]" name="submitOrder" class="rahulshettyacademy.tests.SubmitOrderTest"/>
       </group> <!-- Purchase -->
     </groups>
-    <test started-at="2022-09-11T00:34:43 IST" name="Error Validations Test" finished-at="2022-09-11T00:34:43 IST" duration-ms="22">
+    <test started-at="2022-09-11T16:29:55 IST" name="Error Validations Test" finished-at="2022-09-11T16:29:55 IST" duration-ms="22">
     </test> <!-- Error Validations Test -->
-    <test started-at="2022-09-11T00:34:43 IST" name="Submit Order Test" finished-at="2022-09-11T00:35:20 IST" duration-ms="37388">
+    <test started-at="2022-09-11T16:29:54 IST" name="Submit Order Test" finished-at="2022-09-11T16:30:34 IST" duration-ms="39400">
       <class name="rahulshettyacademy.tests.SubmitOrderTest">
-        <test-method is-config="true" signature="launchApplication()[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@65c7a252]" started-at="2022-09-11T00:34:43 IST" name="launchApplication" finished-at="2022-09-11T00:34:47 IST" duration-ms="3867" status="PASS">
+        <test-method is-config="true" signature="launchApplication()[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@38cee291]" started-at="2022-09-11T16:29:55 IST" name="launchApplication" finished-at="2022-09-11T16:30:00 IST" duration-ms="4930" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- launchApplication -->
-        <test-method signature="submitOrder(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@65c7a252]" started-at="2022-09-11T00:34:47 IST" name="submitOrder" data-provider="getData" finished-at="2022-09-11T00:35:01 IST" duration-ms="14584" status="PASS">
+        <test-method signature="submitOrder(java.util.HashMap)[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@38cee291]" started-at="2022-09-11T16:30:00 IST" name="submitOrder" data-provider="getData" finished-at="2022-09-11T16:30:15 IST" duration-ms="14878" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[dummyemail@rsa.com]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[Dummypassword@123]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[ZARA COAT 3]]>
+                <![CDATA[{password=Dummypassword@123, product=ZARA COAT 3, email=dummyemail@rsa.com}]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- submitOrder -->
-        <test-method is-config="true" signature="launchApplication()[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@65c7a252]" started-at="2022-09-11T00:35:01 IST" name="launchApplication" finished-at="2022-09-11T00:35:06 IST" duration-ms="4298" status="PASS">
+        <test-method is-config="true" signature="launchApplication()[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@38cee291]" started-at="2022-09-11T16:30:15 IST" name="launchApplication" finished-at="2022-09-11T16:30:19 IST" duration-ms="4447" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- launchApplication -->
-        <test-method signature="submitOrder(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@65c7a252]" started-at="2022-09-11T00:35:06 IST" name="submitOrder" data-provider="getData" finished-at="2022-09-11T00:35:20 IST" duration-ms="14501" status="PASS">
+        <test-method signature="submitOrder(java.util.HashMap)[pri:0, instance:rahulshettyacademy.tests.SubmitOrderTest@38cee291]" started-at="2022-09-11T16:30:19 IST" name="submitOrder" data-provider="getData" finished-at="2022-09-11T16:30:34 IST" duration-ms="14671" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[kukrety@gmail.com]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[Dummypassword@123]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[ADIDAS ORIGINAL]]>
+                <![CDATA[{password=Dummypassword@123, product=ADIDAS ORIGINAL, email=kukrety@gmail.com}]]>
               </value>
             </param>
           </params>
