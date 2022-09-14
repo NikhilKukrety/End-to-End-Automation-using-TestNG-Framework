@@ -7,22 +7,22 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.sun.net.httpserver.Authenticator.Retry;
+
 import rahulshettyacademy.TestComponents.BaseTest;
 import rahulshettyacademy.pageobjects.CartPage;
-import rahulshettyacademy.pageobjects.CheckoutPage;
-import rahulshettyacademy.pageobjects.ConfirmationPage;
 import rahulshettyacademy.pageobjects.ProductCatalogue;
 
-public class ErrorValidationsTest extends BaseTest{
+public class ErrorValidationsTest extends BaseTest {
 
 		//This complete end to end e-commerce automation has now become a test case with TestNG Framework
-		@Test(groups = {"ErrorHandling"})
+		@Test(groups = {"ErrorHandling"}, retryAnalyzer = rahulshettyacademy.TestComponents.Retry.class)
 		public void LoginErrorValidation() throws IOException, InterruptedException
 		{
 		String productName = "ZARA COAT 3";
 		landingPage.loginApplication("dummyemail@rsa.comm","Dummypassword@123");
 		//Now, let's say we gave wrong email address/password
-		Assert.assertEquals("Incorrect email or password.", landingPage.getErrorMessage() ); // Compares the actual error message with obtained error message
+		Assert.assertEquals("Incorrect email password.", landingPage.getErrorMessage() ); // Compares the actual error message with obtained error message
 		
 		}
 		

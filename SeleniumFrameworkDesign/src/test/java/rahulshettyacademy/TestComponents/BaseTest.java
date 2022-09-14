@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -83,6 +85,21 @@ public class BaseTest {
 		List<HashMap<String, String>> data = mapper.readValue(jsonContent, new TypeReference<List<HashMap<String, String>>>(){});
 		return data;
 	}
+	
+	//Take screenshot in case of failure:
+			public String getScreenshot(String testCaseName, WebDriver driver) throws IOException
+			{
+				//Creating object "ts" of class "TakesScreenshot":
+				TakesScreenshot ts = (TakesScreenshot)driver;
+				//Taking the screenshot as oytput type as "File" and storing it in File type "source":
+				File source = ts.getScreenshotAs(OutputType.FILE);
+				//Giving file path name:
+				File file = new File(System.getProperty("user.dir")+"//Reports//"+testCaseName+".png");
+				//Copies the file in the destination:
+				FileUtils.copyFile(source, file);
+				return System.getProperty("user.dir")+"//Reports//"+testCaseName+".png"; //So, it is returning the path where the file is stored
+				
+			}
 	
 	
 	@BeforeMethod(alwaysRun=true) //This method will run first whenever this class is called.  Writing "always..." because if we use groups in any class tied to this class, this class also treats all the methods here as groups.

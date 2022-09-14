@@ -68,21 +68,6 @@ public class SubmitOrderTest extends BaseTest{
 		}
 		
 		
-		//Take screenshot in case of failure:
-		public File getScreenshot(String testCaseName) throws IOException
-		{
-			//Creating object "ts" of class "TakesScreenshot":
-			TakesScreenshot ts = (TakesScreenshot)driver;
-			//Taking the screenshot as oytput type as "File" and storing it in File type "source":
-			File source = ts.getScreenshotAs(OutputType.FILE);
-			//Giving file path name:
-			File file = new File(System.getProperty("user.dir")+"//Reports//"+testCaseName+".png");
-			//Copies the file in the destination:
-			FileUtils.copyFile(source, file);
-			return file; //So, it is returning the path where the file is stored
-			
-		}
-		
 		//To run tests in parallel, modify below line like this in "testng.xml" file:
 		// <suite parallel = "tests" name="Suite">
 		//Methods will run in parallel  - <suite parallel = "methods" name="Suite">
