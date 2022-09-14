@@ -15,6 +15,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -39,7 +41,13 @@ public class BaseTest {
 		prop.load(fis); //To load the global properties, we need to use "prop.load();" and load the file (GlobalData.properties) file and will extract all key value pair from it to here. So, this method is expecting argument as input stream, so above line will convert the file to InputStream Object.
 		//Also, it mean the properties object is reading the GlobalData.peroperties file, and above method "load" is loading it in form of FileInputStream
 		
-		String browserName = prop.getProperty("browser"); //This will return "chrome" value from "GlobalData.properties" file and store it in string "browserName"
+		//Let's say we want to run these tests in a particular browser from maven command, so we will write like below:
+		//Below code basically means if condition is true, then execute code after '?' which says run the browser (browservalye guven in maven command) from maven, otherwise if condition is false, run the (part after ':') tests with browser selected from "GlobalData.properties" file.
+		String browserName = System.getProperty("browser")!=null ? System.getProperty("browser") : prop.getProperty("browser");
+		//Above is called as "JAVA TERNARY OPERATOR"
+		
+		
+		//String browserName = prop.getProperty("browser"); //This will return "chrome" value from "GlobalData.properties" file and store it in string "browserName"
 		
 		//Now, if browserName is "chrome", then invoke the chrome browser:
 		if(browserName.equalsIgnoreCase("chrome"))
@@ -54,12 +62,14 @@ public class BaseTest {
 		
 		else if(browserName.equalsIgnoreCase("firefox"))
 		{
-			//Run Firefox browser
+			System.setProperty("webdriver.gecko.driver", "C:\\Program Files\\FirefoxDriver\\geckodriver.exe");
+			driver = new FirefoxDriver();
 		}
 		
 		else if(browserName.equalsIgnoreCase("edge"))
 		{
-			//Run Edge browser
+			System.setProperty("webdriver.edge.driver", "C:\\Program Files\\EdgeDriver\\edge.exe");
+			driver = new EdgeDriver();
 		}
 		
 		//After running a particular browser, do below:
