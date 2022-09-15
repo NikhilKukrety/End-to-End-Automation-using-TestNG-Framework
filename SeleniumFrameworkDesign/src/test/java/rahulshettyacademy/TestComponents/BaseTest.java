@@ -54,7 +54,7 @@ public class BaseTest {
 		//Now, if browserName is "chrome", then invoke the chrome browser:
 		if(browserName.contains("chrome"))
 		{
-			//If we want to run the execution in "headless" mode (means without opening chrome), then use ChromeOptions() class
+			//If we want to run the execution in "headless" mode (means without opening chrome, i.e. on backend), then use ChromeOptions() class
 			ChromeOptions options = new ChromeOptions();
 			
 		/*We don't need Selenium WebDriver in local, instead we can download webDriver manager from pom.xml file.
@@ -66,7 +66,7 @@ public class BaseTest {
 			options.addArguments("headless");
 		}
 		//Creating object of chrome driver:
-		driver = new ChromeDriver();
+		driver = new ChromeDriver(options);
 		
 		//In headless mode, we dont know if browser will be running in maximized window or full screen (1440,900) mode, so do below:
 		driver.manage().window().setSize(new Dimension (1440,900));
