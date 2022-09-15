@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
@@ -50,14 +52,24 @@ public class BaseTest {
 		//String browserName = prop.getProperty("browser"); //This will return "chrome" value from "GlobalData.properties" file and store it in string "browserName"
 		
 		//Now, if browserName is "chrome", then invoke the chrome browser:
-		if(browserName.equalsIgnoreCase("chrome"))
+		if(browserName.contains("chrome"))
 		{
+			//If we want to run the execution in "headless" mode (means without opening chrome), then use ChromeOptions() class
+			ChromeOptions options = new ChromeOptions();
+			
 		/*We don't need Selenium WebDriver in local, instead we can download webDriver manager from pom.xml file.
 		*Download - WebDriverManager from Maven repository and add the dependency.
 		*So, instead of giving System.setProperty.. just give below: */
 		WebDriverManager.chromedriver().setup();
+		if(browserName.contains("headless"))
+		{
+			options.addArguments("headless");
+		}
 		//Creating object of chrome driver:
 		driver = new ChromeDriver();
+		
+		//In headless mode, we dont know if browser will be running in maximized window or full screen (1440,900) mode, so do below:
+		driver.manage().window().setSize(new Dimension (1440,900));
 		}
 		
 		else if(browserName.equalsIgnoreCase("firefox"))
