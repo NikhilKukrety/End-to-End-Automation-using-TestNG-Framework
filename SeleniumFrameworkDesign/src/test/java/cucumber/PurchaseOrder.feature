@@ -14,5 +14,5 @@ Feature: Purchase the order from ECommerce Website
     Then "THANKYOU FOR THE ORDER." should be displayed on ConfirmationPage
 
     Examples: 
-      | name                 | password    | productName |
-      |rahulshetty@gmail.com | IamKing@000 | ZARA COAT 3 |
+      | name                 | password    			 | productName |
+      |dummyemail@rsa.com		 | Dummypassword@123 | ZARA COAT 3 |
