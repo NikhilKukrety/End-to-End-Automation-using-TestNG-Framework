@@ -4,7 +4,7 @@ Feature: Purchase the order from ECommerce Website
   I want to use this template for my feature file
   
   Background:
-  Given I landed on ECommerce Page
+  Given I landed on ECommerce Page 
 
   @tag2
   Scenario Outline: Positive test of submitting the order
